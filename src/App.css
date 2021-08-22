@@ -1,0 +1,185 @@
+.app {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.coloredButton {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  border-radius: 30px;
+  color: white;
+  border: none;
+  background: radial-gradient(circle farthest-corner at 10px 50px, #8d94f0, #aebec5);
+}
+
+.coloredButton:hover {
+  -webkit-filter: hue-rotate(50deg);
+          filter: hue-rotate(50deg);
+}
+
+.logOutBtn {
+  width: 150px;
+  height: 2em;
+  background: black;
+  opacity: 0.5;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.logOutBtn:hover, .logOutBtn:focus {
+  opacity: 1;
+}
+
+.signIn-btnHandler {
+  height: 100vh;
+  position: relative;
+}
+
+.signIn-btnHandler button {
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.heading {
+  background: #5c5c5c;
+  position: fixed;
+  top: 0px;
+  padding: 10px 0;
+  margin-left: -3%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.heading button {
+  margin-left: 3%;
+}
+
+.mainHeading {
+  color: #ffffff;
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.mainFrame {
+  margin: 60px 0 200px 0;
+  width: 94%;
+}
+
+.sendForm {
+  background: #5c5c5c;
+  position: fixed;
+  bottom: 0px;
+  padding: 15px 0;
+  margin-left: -3%;
+  width: 100%;
+}
+
+.sendForm .sendFormContainer {
+  padding: 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.sendForm .sendFormContainer textarea {
+  width: 90%;
+  resize: none;
+  height: 100px;
+  border-radius: 12px;
+  outline: none;
+  padding: 10px;
+}
+
+.sendForm .sendFormContainer button {
+  width: 100px;
+  height: 50px;
+}
+
+.messages {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.message {
+  background-color: rgba(0, 0, 0, 0.25);
+  width: 300px;
+  margin-bottom: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 20px;
+}
+
+.received {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+}
+
+.received .message {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+}
+
+.received .message img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 50px;
+}
+
+.sent .message img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: 50px;
+}
+
+.messageBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+/*# sourceMappingURL=App.css.map */
