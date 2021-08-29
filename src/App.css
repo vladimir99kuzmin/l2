@@ -51,6 +51,7 @@
 
 .heading {
   background: #5c5c5c;
+  z-index: 1;
   position: fixed;
   top: 0px;
   padding: 10px 0;
@@ -173,5 +174,17 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+main {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 200px 1fr;
+      grid-template-columns: 200px 1fr;
+}
+
+.roomChanger {
+  border-right: 1px solid gray;
+  margin-right: 50px !important;
 }
 /*# sourceMappingURL=App.css.map */

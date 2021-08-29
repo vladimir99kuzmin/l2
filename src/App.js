@@ -1,30 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './App.css';
 
-import firebase from 'firebase';
-import 'firebase/firestore';
-import 'firebase/auth';
-import 'firebase/analytics';
+import { auth, firestore, firebase } from './Auth';
 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
-import { TextField } from "@material-ui/core";
+import { TextField, Button, List, ListItem } from "@material-ui/core";
 
-firebase.initializeApp({
-  apiKey: "AIzaSyAHJ3cRH5doA5Vs-wDKOMtuOrsGRWbTVqI",
-  authDomain: "reacttestchat-c0155.firebaseapp.com",
-  projectId: "reacttestchat-c0155",
-  storageBucket: "reacttestchat-c0155.appspot.com",
-  messagingSenderId: "280423523087",
-  appId: "1:280423523087:web:89a4da6b3ba798e5d9947a",
-  measurementId: "G-20CJHTHQLG"
-})
 
-firebase.analytics();
-
-const auth = firebase.auth();
-const firestore = firebase.firestore();
 
 function App() {
   const [user] = useAuthState(auth);
@@ -32,7 +16,7 @@ function App() {
   return (
     <div className="app">
       <section className="mainFrame">
-        {user ? <><MessangerHeader /> <Messanger /></> : <SignIn />}
+        {user ? <><MessangerHeader /> <Rooms /></> : <SignIn />}
       </section>
     </div>
   );
@@ -45,7 +29,7 @@ function SignIn() {
   }
   return (
     <div className="signIn-btnHandler">
-      <button className="coloredButton" onClick={signInWithGoogle}>Войти с Google</button>
+      <Button className="coloredButton" onClick={signInWithGoogle}>Войти с Google</Button>
     </div>
   )
 }
@@ -54,14 +38,37 @@ function MessangerHeader() {
   return auth.currentUser && (
     <div className="heading">
       <h1 className="mainHeading">Мой первый реакт чат</h1>
-      <button className="coloredButton logOutBtn" onClick={() => auth.signOut()}>Выход</button>
+      <Button className="logOutBtn" variant="contained" onClick={() => auth.signOut()}>Выход</Button>
     </div>
   )
 }
 
-function Messanger() {
+function Rooms() {
+  const rooms =
+    [{ id: 'messages', name: 'Room One' },
+    { id: 'messages2', name: 'Room Two' },
+    { id: 'messages3', name: 'Room Three' }];
+  const [chatRoom, setChatRoom] = useState('messages');
 
-  const messagesRef = firestore.collection("messages");
+  const result = rooms.map((element) => {
+    return (
+    <ListItem button onClick={() => setChatRoom(element.id)}>{element.name}</ListItem>
+    );
+  });
+
+  return (
+    <main>
+      <List className="roomChanger">
+        {result}
+      </List>
+      <Messanger room={chatRoom} />
+    </main>
+  );
+}
+
+function Messanger(props) {
+  console.log(props.room);
+  const messagesRef = firestore.collection(props.room);
   const query = messagesRef.orderBy('createdAt').limit(25);
 
   const [messages] = useCollectionData(query, { idField: 'id' });
@@ -110,7 +117,7 @@ function Messanger() {
 
   const firstUpdate = useRef(true);
   useEffect(() => {
-    if(firstUpdate.current) firstUpdate.current = false;
+    if (firstUpdate.current) firstUpdate.current = false;
     else {
       let timer = setTimeout(() => roboAnswer(), 1500);
       return () => clearTimeout(timer);
@@ -125,8 +132,14 @@ function Messanger() {
       </div>
       <form onSubmit={sendMessage} className="sendForm">
         <div className="sendFormContainer">
-          <TextField label="Сообщение" fullWidth onChange={(e) => setFormValue(e.target.value)} value={formValue} style={{backgroundColor: 'white', outline: '0', borderRadius: '5px'}} variant="filled" autoFocus multiline />
-          <button className="coloredButton" type="submit"> Отправить </button>
+          <TextField label="Сообщение"
+            fullWidth onChange={(e) => setFormValue(e.target.value)}
+            value={formValue}
+            style={{ backgroundColor: 'white', outline: '0', borderRadius: '5px' }}
+            variant="filled"
+            autoFocus
+            multiline />
+          <Button className="coloredButton" type="submit"> Отправить </Button>
         </div>
       </form>
 
