@@ -104,16 +104,8 @@
           align-items: center;
 }
 
-.sendForm .sendFormContainer textarea {
-  width: 90%;
-  resize: none;
-  height: 100px;
-  border-radius: 12px;
-  outline: none;
-  padding: 10px;
-}
-
 .sendForm .sendFormContainer button {
+  margin-left: 20px;
   width: 100px;
   height: 50px;
 }

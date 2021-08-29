@@ -9,6 +9,7 @@ import 'firebase/analytics';
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 
+import { TextField } from "@material-ui/core";
 
 firebase.initializeApp({
   apiKey: "AIzaSyAHJ3cRH5doA5Vs-wDKOMtuOrsGRWbTVqI",
@@ -27,12 +28,11 @@ const firestore = firebase.firestore();
 
 function App() {
   const [user] = useAuthState(auth);
-  console.log(auth.currentUser);
 
   return (
     <div className="app">
       <section className="mainFrame">
-        {user ? <><SignOut /> <Messanger /></> : <SignIn />}
+        {user ? <><MessangerHeader /> <Messanger /></> : <SignIn />}
       </section>
     </div>
   );
@@ -50,7 +50,7 @@ function SignIn() {
   )
 }
 
-function SignOut() {
+function MessangerHeader() {
   return auth.currentUser && (
     <div className="heading">
       <h1 className="mainHeading">Мой первый реакт чат</h1>
@@ -85,11 +85,10 @@ function Messanger() {
       photoURL,
       displayName
     });
-    console.log(messages);
 
     setFormValue('');
 
-    dummy.current.scrollIntoView({ behavior: 'smooth' })
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   const roboAnswer = async () => {
@@ -103,16 +102,19 @@ function Messanger() {
       displayName: 'ChatBot'
 
     });
-    console.log(messages);
 
     setFormValue('');
 
+    dummy.current.scrollIntoView({ behavior: 'smooth' });
   }
 
   const firstUpdate = useRef(true);
   useEffect(() => {
     if(firstUpdate.current) firstUpdate.current = false;
-    else setTimeout(() => roboAnswer(), 1500) ;
+    else {
+      let timer = setTimeout(() => roboAnswer(), 1500);
+      return () => clearTimeout(timer);
+    }
   }, [messageSended])
 
   return (
@@ -123,7 +125,7 @@ function Messanger() {
       </div>
       <form onSubmit={sendMessage} className="sendForm">
         <div className="sendFormContainer">
-          <textarea value={formValue} onChange={(e) => setFormValue(e.target.value)} />
+          <TextField label="Сообщение" fullWidth onChange={(e) => setFormValue(e.target.value)} value={formValue} style={{backgroundColor: 'white', outline: '0', borderRadius: '5px'}} variant="filled" autoFocus multiline />
           <button className="coloredButton" type="submit"> Отправить </button>
         </div>
       </form>
